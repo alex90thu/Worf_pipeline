@@ -1,0 +1,27 @@
+{
+  "conda_env": "worf_env",
+  "conda_prefix": "/home/guozehua/miniconda3",
+  "ref_mmi": "/data/lulab_commonspace/guozehua/Worf/references/hg38.mmi",
+  "raw_root": "/data/lulab_commonspace/yaozonglin",
+  "control_exp": "20260127humangenecontrol",
+  "experiments": [
+    "20260508WORFT5-SNAP",
+    "20260615sc-WORF",
+    "20260628chip-100"
+  ],
+  "targets": {
+    "on": "targets/on.csv",
+    "off": "targets/off.csv"
+  },
+  "workflow_root": "/data/lulab_commonspace/guozehua/worf_pipeline",
+  "window": 150,
+  "mapq_threshold": 30,
+  "min_mapq_step1": 0,
+  "threads": 8,
+  "fastp_extra_args": "-Q -L",
+  "n_rows": {
+    "20260508WORFT5-SNAP": 80000,
+    "20260615sc-WORF": 1000,
+    "20260628chip-100": 100
+  }
+}

@@ -1,0 +1,2020 @@
+{
+  "generated_at": "2026-08-01T00:05:30",
+  "workflow_root": "/data/lulab_commonspace/guozehua/worf_pipeline",
+  "pipeline_root": "/home/guozehua/Projects/Lab/Worf_pipeline",
+  "window": 150,
+  "mapq_threshold": 30,
+  "experiments": {
+    "20260508WORFT5-SNAP": {
+      "is_control": false,
+      "raw_dir": "/data/lulab_commonspace/yaozonglin/20260508WORFT5-SNAP/00.mergeRawFq",
+      "samples": {
+        "UDI001": {
+          "raw_fq_dir": "/data/lulab_commonspace/yaozonglin/20260508WORFT5-SNAP/00.mergeRawFq/UDI001",
+          "steps": {
+            "qc": {
+              "source_dir": "/data/lulab_commonspace/yaozonglin/20260508WORFT5-SNAP/00.mergeRawFq/UDI001/results/01_qc",
+              "timestamp": "2026-07-31T19:09:40",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/1.QC/20260508WORFT5-SNAP/UDI001_clean_1.fq.gz": {
+                  "exists": true,
+                  "size_bytes": 2324421220,
+                  "mtime": "2026-07-31T19:09:40"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/1.QC/20260508WORFT5-SNAP/UDI001_clean_2.fq.gz": {
+                  "exists": true,
+                  "size_bytes": 2723937889,
+                  "mtime": "2026-07-31T19:09:50"
+                }
+              }
+            },
+            "align": {
+              "source_dir": "/data/lulab_commonspace/yaozonglin/20260508WORFT5-SNAP/00.mergeRawFq/UDI001/results/03_bam",
+              "timestamp": "2026-07-31T19:09:52",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/2.Alignment/20260508WORFT5-SNAP/UDI001_aligned.sorted.bam": {
+                  "exists": true,
+                  "size_bytes": 2922120461,
+                  "mtime": "2026-07-31T19:09:52"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/2.Alignment/20260508WORFT5-SNAP/UDI001_aligned.sorted.bam.bai": {
+                  "exists": true,
+                  "size_bytes": 4805888,
+                  "mtime": "2026-07-31T19:09:52"
+                }
+              }
+            },
+            "count": {
+              "source_dir": "/data/lulab_commonspace/guozehua/worf_benchmark/saturation_runs/20260508WORFT5-SNAP_on/frac_1",
+              "timestamp": "2026-07-31T19:10:53",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260508WORFT5-SNAP/UDI001_reads.parquet": {
+                  "exists": true,
+                  "size_bytes": 42670626,
+                  "mtime": "2026-07-31T19:10:53"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260508WORFT5-SNAP/on_target_counts.csv": {
+                  "exists": true,
+                  "size_bytes": 3374271,
+                  "mtime": "2026-07-31T19:10:53"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260508WORFT5-SNAP/off_target_counts.csv": {
+                  "exists": true,
+                  "size_bytes": 5977010,
+                  "mtime": "2026-07-31T19:10:53"
+                }
+              }
+            }
+          }
+        }
+      },
+      "steps": {
+        "diff": {
+          "source_dir": "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP",
+          "timestamp": "2026-07-31T23:39:25",
+          "complete": true,
+          "files": {
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_on_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 4404812,
+              "mtime": "2026-07-31T23:39:25"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_off_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 7621039,
+              "mtime": "2026-07-31T23:39:26"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 13266003,
+              "mtime": "2026-07-31T23:39:26"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.001_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13266003,
+              "mtime": "2026-07-31T23:39:26"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_on_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 4408929,
+              "mtime": "2026-07-31T23:39:27"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_off_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 7626286,
+              "mtime": "2026-07-31T23:39:27"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 13275367,
+              "mtime": "2026-07-31T23:39:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.01_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13275314,
+              "mtime": "2026-07-31T23:39:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_on_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 4423380,
+              "mtime": "2026-07-31T23:39:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_off_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 7645661,
+              "mtime": "2026-07-31T23:39:29"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 13309193,
+              "mtime": "2026-07-31T23:39:29"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.05_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13309139,
+              "mtime": "2026-07-31T23:39:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_on_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 4437639,
+              "mtime": "2026-07-31T23:39:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_off_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 7665671,
+              "mtime": "2026-07-31T23:39:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 13343462,
+              "mtime": "2026-07-31T23:39:31"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.1_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13343001,
+              "mtime": "2026-07-31T23:39:31"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_on_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 4458639,
+              "mtime": "2026-07-31T23:39:31"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_off_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 7695607,
+              "mtime": "2026-07-31T23:39:32"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 13394398,
+              "mtime": "2026-07-31T23:39:32"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.2_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13382307,
+              "mtime": "2026-07-31T23:39:33"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_on_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 4498496,
+              "mtime": "2026-07-31T23:39:33"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_off_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 7750170,
+              "mtime": "2026-07-31T23:39:33"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 13488818,
+              "mtime": "2026-07-31T23:39:34"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_0.5_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13070880,
+              "mtime": "2026-07-31T23:39:34"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_on_diff.csv": {
+              "exists": true,
+              "size_bytes": 4561278,
+              "mtime": "2026-07-31T23:39:35"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_off_diff.csv": {
+              "exists": true,
+              "size_bytes": 7832231,
+              "mtime": "2026-07-31T23:39:35"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff.csv": {
+              "exists": true,
+              "size_bytes": 13633661,
+              "mtime": "2026-07-31T23:39:35"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260508WORFT5-SNAP/20260508WORFT5-SNAP_diff_filtered.csv": {
+              "exists": true,
+              "size_bytes": 11225760,
+              "mtime": "2026-07-31T23:39:36"
+            }
+          }
+        },
+        "plot": {
+          "source_dir": "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots",
+          "timestamp": "2026-07-31T23:45:17",
+          "complete": true,
+          "files": {
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.001_N10000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 116059,
+              "mtime": "2026-08-01T00:04:18"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.001_N10000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 103231,
+              "mtime": "2026-08-01T00:04:18"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.001_N80000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 106310,
+              "mtime": "2026-07-31T23:45:17"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.001_N80000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 92025,
+              "mtime": "2026-07-31T23:45:19"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.01_N10000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 145596,
+              "mtime": "2026-08-01T00:04:22"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.01_N10000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 139503,
+              "mtime": "2026-08-01T00:04:23"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.01_N80000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 141724,
+              "mtime": "2026-07-31T23:45:41"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.01_N80000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 131627,
+              "mtime": "2026-07-31T23:45:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.05_N10000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 187597,
+              "mtime": "2026-08-01T00:04:27"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.05_N10000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 210273,
+              "mtime": "2026-08-01T00:04:27"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.05_N80000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 187130,
+              "mtime": "2026-07-31T23:46:04"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.05_N80000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 207210,
+              "mtime": "2026-07-31T23:46:05"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.1_N10000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 190856,
+              "mtime": "2026-08-01T00:04:32"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.1_N10000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 242400,
+              "mtime": "2026-08-01T00:04:32"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.1_N80000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 164883,
+              "mtime": "2026-07-31T23:46:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.1_N80000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 236715,
+              "mtime": "2026-07-31T23:46:29"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.2_N10000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 168900,
+              "mtime": "2026-08-01T00:04:36"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.2_N10000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 249549,
+              "mtime": "2026-08-01T00:04:37"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.2_N80000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 145285,
+              "mtime": "2026-07-31T23:46:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.2_N80000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 240131,
+              "mtime": "2026-07-31T23:46:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.5_N10000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 138571,
+              "mtime": "2026-08-01T00:04:41"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.5_N10000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 232914,
+              "mtime": "2026-08-01T00:04:41"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.5_N80000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 119258,
+              "mtime": "2026-07-31T23:47:14"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/0.5_N80000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 223720,
+              "mtime": "2026-07-31T23:47:16"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/1_N10000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 138605,
+              "mtime": "2026-08-01T00:04:46"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/1_N10000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 238324,
+              "mtime": "2026-08-01T00:04:46"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/1_N80000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 121225,
+              "mtime": "2026-07-31T23:47:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260508WORFT5-SNAP/1_N80000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 230480,
+              "mtime": "2026-07-31T23:47:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N10000/bar.png": {
+              "exists": true,
+              "size_bytes": 58666,
+              "mtime": "2026-08-01T00:04:19"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N10000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 58666,
+              "mtime": "2026-08-01T00:04:20"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N10000/box.png": {
+              "exists": true,
+              "size_bytes": 56604,
+              "mtime": "2026-08-01T00:04:20"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N10000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 56604,
+              "mtime": "2026-08-01T00:04:21"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N10000/violin.png": {
+              "exists": true,
+              "size_bytes": 50773,
+              "mtime": "2026-08-01T00:04:20"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N10000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 50773,
+              "mtime": "2026-08-01T00:04:21"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N80000/bar.png": {
+              "exists": true,
+              "size_bytes": 57520,
+              "mtime": "2026-07-31T23:45:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N80000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 57520,
+              "mtime": "2026-07-31T23:45:31"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N80000/box.png": {
+              "exists": true,
+              "size_bytes": 56741,
+              "mtime": "2026-07-31T23:45:31"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N80000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 56741,
+              "mtime": "2026-07-31T23:45:32"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N80000/violin.png": {
+              "exists": true,
+              "size_bytes": 48794,
+              "mtime": "2026-07-31T23:45:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.001_N80000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 48794,
+              "mtime": "2026-07-31T23:45:31"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N10000/bar.png": {
+              "exists": true,
+              "size_bytes": 58043,
+              "mtime": "2026-08-01T00:04:24"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N10000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 57821,
+              "mtime": "2026-08-01T00:04:25"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N10000/box.png": {
+              "exists": true,
+              "size_bytes": 58363,
+              "mtime": "2026-08-01T00:04:25"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N10000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 53463,
+              "mtime": "2026-08-01T00:04:26"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N10000/violin.png": {
+              "exists": true,
+              "size_bytes": 54476,
+              "mtime": "2026-08-01T00:04:24"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N10000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 57100,
+              "mtime": "2026-08-01T00:04:25"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N80000/bar.png": {
+              "exists": true,
+              "size_bytes": 56997,
+              "mtime": "2026-07-31T23:45:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N80000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 57052,
+              "mtime": "2026-07-31T23:45:54"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N80000/box.png": {
+              "exists": true,
+              "size_bytes": 58527,
+              "mtime": "2026-07-31T23:45:54"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N80000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 53231,
+              "mtime": "2026-07-31T23:45:55"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N80000/violin.png": {
+              "exists": true,
+              "size_bytes": 48432,
+              "mtime": "2026-07-31T23:45:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.01_N80000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 45972,
+              "mtime": "2026-07-31T23:45:55"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N10000/bar.png": {
+              "exists": true,
+              "size_bytes": 56815,
+              "mtime": "2026-08-01T00:04:29"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N10000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 56602,
+              "mtime": "2026-08-01T00:04:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N10000/box.png": {
+              "exists": true,
+              "size_bytes": 62622,
+              "mtime": "2026-08-01T00:04:29"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N10000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 65781,
+              "mtime": "2026-08-01T00:04:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N10000/violin.png": {
+              "exists": true,
+              "size_bytes": 53614,
+              "mtime": "2026-08-01T00:04:29"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N10000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 65487,
+              "mtime": "2026-08-01T00:04:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N80000/bar.png": {
+              "exists": true,
+              "size_bytes": 55758,
+              "mtime": "2026-07-31T23:46:16"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N80000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 55746,
+              "mtime": "2026-07-31T23:46:17"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N80000/box.png": {
+              "exists": true,
+              "size_bytes": 63075,
+              "mtime": "2026-07-31T23:46:17"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N80000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 66159,
+              "mtime": "2026-07-31T23:46:18"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N80000/violin.png": {
+              "exists": true,
+              "size_bytes": 49294,
+              "mtime": "2026-07-31T23:46:16"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.05_N80000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 57581,
+              "mtime": "2026-07-31T23:46:18"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N10000/bar.png": {
+              "exists": true,
+              "size_bytes": 54008,
+              "mtime": "2026-08-01T00:04:33"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N10000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 51796,
+              "mtime": "2026-08-01T00:04:34"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N10000/box.png": {
+              "exists": true,
+              "size_bytes": 68157,
+              "mtime": "2026-08-01T00:04:34"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N10000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 64081,
+              "mtime": "2026-08-01T00:04:35"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N10000/violin.png": {
+              "exists": true,
+              "size_bytes": 59343,
+              "mtime": "2026-08-01T00:04:34"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N10000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 69193,
+              "mtime": "2026-08-01T00:04:35"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N80000/bar.png": {
+              "exists": true,
+              "size_bytes": 53518,
+              "mtime": "2026-07-31T23:46:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N80000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 53480,
+              "mtime": "2026-07-31T23:46:41"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N80000/box.png": {
+              "exists": true,
+              "size_bytes": 69121,
+              "mtime": "2026-07-31T23:46:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N80000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 67161,
+              "mtime": "2026-07-31T23:46:42"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N80000/violin.png": {
+              "exists": true,
+              "size_bytes": 55431,
+              "mtime": "2026-07-31T23:46:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.1_N80000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 60153,
+              "mtime": "2026-07-31T23:46:41"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N10000/bar.png": {
+              "exists": true,
+              "size_bytes": 49048,
+              "mtime": "2026-08-01T00:04:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N10000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 48878,
+              "mtime": "2026-08-01T00:04:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N10000/box.png": {
+              "exists": true,
+              "size_bytes": 68545,
+              "mtime": "2026-08-01T00:04:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N10000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 69246,
+              "mtime": "2026-08-01T00:04:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N10000/violin.png": {
+              "exists": true,
+              "size_bytes": 56567,
+              "mtime": "2026-08-01T00:04:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N10000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 72935,
+              "mtime": "2026-08-01T00:04:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N80000/bar.png": {
+              "exists": true,
+              "size_bytes": 51287,
+              "mtime": "2026-07-31T23:47:03"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N80000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 51279,
+              "mtime": "2026-07-31T23:47:04"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N80000/box.png": {
+              "exists": true,
+              "size_bytes": 66969,
+              "mtime": "2026-07-31T23:47:04"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N80000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 71308,
+              "mtime": "2026-07-31T23:47:05"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N80000/violin.png": {
+              "exists": true,
+              "size_bytes": 54186,
+              "mtime": "2026-07-31T23:47:03"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.2_N80000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 69512,
+              "mtime": "2026-07-31T23:47:05"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N10000/bar.png": {
+              "exists": true,
+              "size_bytes": 54642,
+              "mtime": "2026-08-01T00:04:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N10000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 53818,
+              "mtime": "2026-08-01T00:04:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N10000/box.png": {
+              "exists": true,
+              "size_bytes": 67527,
+              "mtime": "2026-08-01T00:04:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N10000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 72368,
+              "mtime": "2026-08-01T00:04:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N10000/violin.png": {
+              "exists": true,
+              "size_bytes": 57333,
+              "mtime": "2026-08-01T00:04:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N10000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 68765,
+              "mtime": "2026-08-01T00:04:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N80000/bar.png": {
+              "exists": true,
+              "size_bytes": 49132,
+              "mtime": "2026-07-31T23:47:26"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N80000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 48813,
+              "mtime": "2026-07-31T23:47:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N80000/box.png": {
+              "exists": true,
+              "size_bytes": 67222,
+              "mtime": "2026-07-31T23:47:27"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N80000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 72713,
+              "mtime": "2026-07-31T23:47:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N80000/violin.png": {
+              "exists": true,
+              "size_bytes": 54106,
+              "mtime": "2026-07-31T23:47:27"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/0.5_N80000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 72568,
+              "mtime": "2026-07-31T23:47:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N10000/bar.png": {
+              "exists": true,
+              "size_bytes": 58220,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N10000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 52546,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N10000/box.png": {
+              "exists": true,
+              "size_bytes": 72944,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N10000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 70937,
+              "mtime": "2026-08-01T00:04:49"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N10000/violin.png": {
+              "exists": true,
+              "size_bytes": 61805,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N10000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 67539,
+              "mtime": "2026-08-01T00:04:49"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N80000/bar.png": {
+              "exists": true,
+              "size_bytes": 47981,
+              "mtime": "2026-07-31T23:47:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N80000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 49260,
+              "mtime": "2026-07-31T23:47:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N80000/box.png": {
+              "exists": true,
+              "size_bytes": 71881,
+              "mtime": "2026-07-31T23:47:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N80000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 71056,
+              "mtime": "2026-07-31T23:47:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N80000/violin.png": {
+              "exists": true,
+              "size_bytes": 58562,
+              "mtime": "2026-07-31T23:47:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260508WORFT5-SNAP/1_N80000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 66773,
+              "mtime": "2026-07-31T23:47:53"
+            }
+          }
+        }
+      }
+    },
+    "20260615sc-WORF": {
+      "is_control": false,
+      "raw_dir": "/data/lulab_commonspace/yaozonglin/20260615sc-WORF/00.mergerRawFq",
+      "samples": {
+        "UDI001": {
+          "raw_fq_dir": "/data/lulab_commonspace/yaozonglin/20260615sc-WORF/00.mergerRawFq/UDI001",
+          "steps": {
+            "qc": {
+              "source_dir": "/data/lulab_commonspace/yaozonglin/20260615sc-WORF/00.mergerRawFq/UDI001/results/01_qc",
+              "timestamp": "2026-07-31T19:10:04",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/1.QC/20260615sc-WORF/UDI001_clean_1.fq.gz": {
+                  "exists": true,
+                  "size_bytes": 2798918337,
+                  "mtime": "2026-07-31T19:10:04"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/1.QC/20260615sc-WORF/UDI001_clean_2.fq.gz": {
+                  "exists": true,
+                  "size_bytes": 3110763393,
+                  "mtime": "2026-07-31T19:10:09"
+                }
+              }
+            },
+            "align": {
+              "source_dir": "/data/lulab_commonspace/yaozonglin/20260615sc-WORF/00.mergerRawFq/UDI001/results/03_bam",
+              "timestamp": "2026-07-31T19:10:11",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/2.Alignment/20260615sc-WORF/UDI001_aligned.sorted.bam": {
+                  "exists": true,
+                  "size_bytes": 2663107163,
+                  "mtime": "2026-07-31T19:10:11"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/2.Alignment/20260615sc-WORF/UDI001_aligned.sorted.bam.bai": {
+                  "exists": true,
+                  "size_bytes": 4670688,
+                  "mtime": "2026-07-31T19:10:11"
+                }
+              }
+            },
+            "count": {
+              "source_dir": "/data/lulab_commonspace/guozehua/worf_benchmark/saturation_runs/20260615sc-WORF_on/frac_1",
+              "timestamp": "2026-07-31T19:10:54",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260615sc-WORF/UDI001_reads.parquet": {
+                  "exists": true,
+                  "size_bytes": 7779009,
+                  "mtime": "2026-07-31T19:10:54"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260615sc-WORF/on_target_counts.csv": {
+                  "exists": true,
+                  "size_bytes": 3366837,
+                  "mtime": "2026-07-31T19:10:54"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260615sc-WORF/off_target_counts.csv": {
+                  "exists": true,
+                  "size_bytes": 5968801,
+                  "mtime": "2026-07-31T19:10:54"
+                }
+              }
+            }
+          }
+        }
+      },
+      "steps": {
+        "diff": {
+          "source_dir": "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF",
+          "timestamp": "2026-07-31T23:39:36",
+          "complete": true,
+          "files": {
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_on_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 4404810,
+              "mtime": "2026-07-31T23:39:36"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_off_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 7621039,
+              "mtime": "2026-07-31T23:39:36"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 13266001,
+              "mtime": "2026-07-31T23:39:37"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.001_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13266001,
+              "mtime": "2026-07-31T23:39:37"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_on_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 4409443,
+              "mtime": "2026-07-31T23:39:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_off_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 7626792,
+              "mtime": "2026-07-31T23:39:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 13276387,
+              "mtime": "2026-07-31T23:39:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.01_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13276333,
+              "mtime": "2026-07-31T23:39:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_on_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 4425689,
+              "mtime": "2026-07-31T23:39:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_off_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 7647939,
+              "mtime": "2026-07-31T23:39:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 13313780,
+              "mtime": "2026-07-31T23:39:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.05_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13313726,
+              "mtime": "2026-07-31T23:39:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_on_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 4440330,
+              "mtime": "2026-07-31T23:39:41"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_off_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 7668056,
+              "mtime": "2026-07-31T23:39:41"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 13348538,
+              "mtime": "2026-07-31T23:39:42"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.1_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13348075,
+              "mtime": "2026-07-31T23:39:42"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_on_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 4459644,
+              "mtime": "2026-07-31T23:39:42"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_off_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 7696186,
+              "mtime": "2026-07-31T23:39:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 13395982,
+              "mtime": "2026-07-31T23:39:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.2_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13383865,
+              "mtime": "2026-07-31T23:39:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_on_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 4496779,
+              "mtime": "2026-07-31T23:39:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_off_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 7747505,
+              "mtime": "2026-07-31T23:39:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 13484436,
+              "mtime": "2026-07-31T23:39:45"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_0.5_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13065936,
+              "mtime": "2026-07-31T23:39:45"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_on_diff.csv": {
+              "exists": true,
+              "size_bytes": 4560746,
+              "mtime": "2026-07-31T23:39:45"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_off_diff.csv": {
+              "exists": true,
+              "size_bytes": 7830694,
+              "mtime": "2026-07-31T23:39:46"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff.csv": {
+              "exists": true,
+              "size_bytes": 13631592,
+              "mtime": "2026-07-31T23:39:46"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260615sc-WORF/20260615sc-WORF_diff_filtered.csv": {
+              "exists": true,
+              "size_bytes": 11222449,
+              "mtime": "2026-07-31T23:39:47"
+            }
+          }
+        },
+        "plot": {
+          "source_dir": "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots",
+          "timestamp": "2026-08-01T00:04:28",
+          "complete": true,
+          "files": {
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.001_N1000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 121440,
+              "mtime": "2026-08-01T00:04:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.001_N1000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 113661,
+              "mtime": "2026-08-01T00:04:28"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.01_N1000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 113685,
+              "mtime": "2026-08-01T00:04:32"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.01_N1000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 137603,
+              "mtime": "2026-08-01T00:04:32"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.05_N1000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 131783,
+              "mtime": "2026-08-01T00:04:36"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.05_N1000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 155393,
+              "mtime": "2026-08-01T00:04:37"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.1_N1000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 133579,
+              "mtime": "2026-08-01T00:04:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.1_N1000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 154306,
+              "mtime": "2026-08-01T00:04:41"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.2_N1000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 130728,
+              "mtime": "2026-08-01T00:04:45"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.2_N1000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 157123,
+              "mtime": "2026-08-01T00:04:45"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.5_N1000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 126826,
+              "mtime": "2026-08-01T00:04:49"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/0.5_N1000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 160323,
+              "mtime": "2026-08-01T00:04:49"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/1_N1000/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 118903,
+              "mtime": "2026-08-01T00:04:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260615sc-WORF/1_N1000/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 156934,
+              "mtime": "2026-08-01T00:04:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.001_N1000/bar.png": {
+              "exists": true,
+              "size_bytes": 49135,
+              "mtime": "2026-08-01T00:04:29"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.001_N1000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 49135,
+              "mtime": "2026-08-01T00:04:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.001_N1000/box.png": {
+              "exists": true,
+              "size_bytes": 58960,
+              "mtime": "2026-08-01T00:04:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.001_N1000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 58960,
+              "mtime": "2026-08-01T00:04:31"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.001_N1000/violin.png": {
+              "exists": true,
+              "size_bytes": 65365,
+              "mtime": "2026-08-01T00:04:30"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.001_N1000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 65365,
+              "mtime": "2026-08-01T00:04:31"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.01_N1000/bar.png": {
+              "exists": true,
+              "size_bytes": 46841,
+              "mtime": "2026-08-01T00:04:34"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.01_N1000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 46531,
+              "mtime": "2026-08-01T00:04:35"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.01_N1000/box.png": {
+              "exists": true,
+              "size_bytes": 62662,
+              "mtime": "2026-08-01T00:04:34"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.01_N1000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 59311,
+              "mtime": "2026-08-01T00:04:35"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.01_N1000/violin.png": {
+              "exists": true,
+              "size_bytes": 58908,
+              "mtime": "2026-08-01T00:04:34"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.01_N1000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 59969,
+              "mtime": "2026-08-01T00:04:35"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.05_N1000/bar.png": {
+              "exists": true,
+              "size_bytes": 46583,
+              "mtime": "2026-08-01T00:04:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.05_N1000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 46680,
+              "mtime": "2026-08-01T00:04:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.05_N1000/box.png": {
+              "exists": true,
+              "size_bytes": 67643,
+              "mtime": "2026-08-01T00:04:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.05_N1000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 65564,
+              "mtime": "2026-08-01T00:04:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.05_N1000/violin.png": {
+              "exists": true,
+              "size_bytes": 60770,
+              "mtime": "2026-08-01T00:04:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.05_N1000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 65987,
+              "mtime": "2026-08-01T00:04:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.1_N1000/bar.png": {
+              "exists": true,
+              "size_bytes": 49201,
+              "mtime": "2026-08-01T00:04:42"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.1_N1000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 49132,
+              "mtime": "2026-08-01T00:04:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.1_N1000/box.png": {
+              "exists": true,
+              "size_bytes": 69732,
+              "mtime": "2026-08-01T00:04:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.1_N1000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 63156,
+              "mtime": "2026-08-01T00:04:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.1_N1000/violin.png": {
+              "exists": true,
+              "size_bytes": 64182,
+              "mtime": "2026-08-01T00:04:42"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.1_N1000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 66725,
+              "mtime": "2026-08-01T00:04:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.2_N1000/bar.png": {
+              "exists": true,
+              "size_bytes": 49780,
+              "mtime": "2026-08-01T00:04:46"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.2_N1000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 48804,
+              "mtime": "2026-08-01T00:04:47"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.2_N1000/box.png": {
+              "exists": true,
+              "size_bytes": 65331,
+              "mtime": "2026-08-01T00:04:47"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.2_N1000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 61280,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.2_N1000/violin.png": {
+              "exists": true,
+              "size_bytes": 62899,
+              "mtime": "2026-08-01T00:04:47"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.2_N1000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 68783,
+              "mtime": "2026-08-01T00:04:47"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.5_N1000/bar.png": {
+              "exists": true,
+              "size_bytes": 56490,
+              "mtime": "2026-08-01T00:04:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.5_N1000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 50983,
+              "mtime": "2026-08-01T00:04:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.5_N1000/box.png": {
+              "exists": true,
+              "size_bytes": 68722,
+              "mtime": "2026-08-01T00:04:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.5_N1000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 64602,
+              "mtime": "2026-08-01T00:04:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.5_N1000/violin.png": {
+              "exists": true,
+              "size_bytes": 64873,
+              "mtime": "2026-08-01T00:04:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/0.5_N1000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 67711,
+              "mtime": "2026-08-01T00:04:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/1_N1000/bar.png": {
+              "exists": true,
+              "size_bytes": 53576,
+              "mtime": "2026-08-01T00:04:55"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/1_N1000/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 51921,
+              "mtime": "2026-08-01T00:04:56"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/1_N1000/box.png": {
+              "exists": true,
+              "size_bytes": 70648,
+              "mtime": "2026-08-01T00:04:55"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/1_N1000/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 64568,
+              "mtime": "2026-08-01T00:04:56"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/1_N1000/violin.png": {
+              "exists": true,
+              "size_bytes": 65973,
+              "mtime": "2026-08-01T00:04:55"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260615sc-WORF/1_N1000/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 68939,
+              "mtime": "2026-08-01T00:04:56"
+            }
+          }
+        }
+      }
+    },
+    "20260628chip-100": {
+      "is_control": false,
+      "raw_dir": "/data/lulab_commonspace/yaozonglin/20260628chip-100/00.mergeRawFq",
+      "samples": {
+        "UDI001": {
+          "raw_fq_dir": "/data/lulab_commonspace/yaozonglin/20260628chip-100/00.mergeRawFq/UDI001",
+          "steps": {
+            "qc": {
+              "source_dir": "/data/lulab_commonspace/yaozonglin/20260628chip-100/00.mergeRawFq/UDI001/results/01_qc",
+              "timestamp": "2026-07-31T19:10:23",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/1.QC/20260628chip-100/UDI001_clean_1.fq.gz": {
+                  "exists": true,
+                  "size_bytes": 1276086333,
+                  "mtime": "2026-07-31T19:10:23"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/1.QC/20260628chip-100/UDI001_clean_2.fq.gz": {
+                  "exists": true,
+                  "size_bytes": 1397317262,
+                  "mtime": "2026-07-31T19:10:25"
+                }
+              }
+            },
+            "align": {
+              "source_dir": "/data/lulab_commonspace/yaozonglin/20260628chip-100/00.mergeRawFq/UDI001/results/03_bam",
+              "timestamp": "2026-07-31T19:10:26",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/2.Alignment/20260628chip-100/UDI001_aligned.sorted.bam": {
+                  "exists": true,
+                  "size_bytes": 1159374995,
+                  "mtime": "2026-07-31T19:10:26"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/2.Alignment/20260628chip-100/UDI001_aligned.sorted.bam.bai": {
+                  "exists": true,
+                  "size_bytes": 3267896,
+                  "mtime": "2026-07-31T19:10:26"
+                }
+              }
+            },
+            "count": {
+              "source_dir": "/data/lulab_commonspace/guozehua/worf_benchmark/saturation_runs/20260628chip-100_on/frac_1",
+              "timestamp": "2026-07-31T19:10:54",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260628chip-100/UDI001_reads.parquet": {
+                  "exists": true,
+                  "size_bytes": 2517360,
+                  "mtime": "2026-07-31T19:10:54"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260628chip-100/on_target_counts.csv": {
+                  "exists": true,
+                  "size_bytes": 3365743,
+                  "mtime": "2026-07-31T19:10:54"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260628chip-100/off_target_counts.csv": {
+                  "exists": true,
+                  "size_bytes": 5967685,
+                  "mtime": "2026-07-31T19:10:54"
+                }
+              }
+            }
+          }
+        }
+      },
+      "steps": {
+        "diff": {
+          "source_dir": "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100",
+          "timestamp": "2026-07-31T23:39:47",
+          "complete": true,
+          "files": {
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_on_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 4404812,
+              "mtime": "2026-07-31T23:39:47"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_off_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 7621040,
+              "mtime": "2026-07-31T23:39:47"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.001.csv": {
+              "exists": true,
+              "size_bytes": 13266004,
+              "mtime": "2026-07-31T23:39:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.001_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13266004,
+              "mtime": "2026-07-31T23:39:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_on_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 4409212,
+              "mtime": "2026-07-31T23:39:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_off_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 7626596,
+              "mtime": "2026-07-31T23:39:49"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.01.csv": {
+              "exists": true,
+              "size_bytes": 13275960,
+              "mtime": "2026-07-31T23:39:49"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.01_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13275907,
+              "mtime": "2026-07-31T23:39:50"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_on_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 4424931,
+              "mtime": "2026-07-31T23:39:50"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_off_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 7647261,
+              "mtime": "2026-07-31T23:39:50"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.05.csv": {
+              "exists": true,
+              "size_bytes": 13312344,
+              "mtime": "2026-07-31T23:39:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.05_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13312291,
+              "mtime": "2026-07-31T23:39:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_on_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 4439483,
+              "mtime": "2026-07-31T23:39:51"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_off_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 7667248,
+              "mtime": "2026-07-31T23:39:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.1.csv": {
+              "exists": true,
+              "size_bytes": 13346883,
+              "mtime": "2026-07-31T23:39:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.1_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13346421,
+              "mtime": "2026-07-31T23:39:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_on_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 4458376,
+              "mtime": "2026-07-31T23:39:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_off_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 7694910,
+              "mtime": "2026-07-31T23:39:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.2.csv": {
+              "exists": true,
+              "size_bytes": 13393438,
+              "mtime": "2026-07-31T23:39:54"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.2_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13381326,
+              "mtime": "2026-07-31T23:39:54"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_on_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 4495537,
+              "mtime": "2026-07-31T23:39:54"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_off_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 7746251,
+              "mtime": "2026-07-31T23:39:55"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.5.csv": {
+              "exists": true,
+              "size_bytes": 13481940,
+              "mtime": "2026-07-31T23:39:55"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_0.5_filtered.csv": {
+              "exists": true,
+              "size_bytes": 13063562,
+              "mtime": "2026-07-31T23:39:56"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_on_diff.csv": {
+              "exists": true,
+              "size_bytes": 4559640,
+              "mtime": "2026-07-31T23:39:56"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_off_diff.csv": {
+              "exists": true,
+              "size_bytes": 7829468,
+              "mtime": "2026-07-31T23:39:56"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff.csv": {
+              "exists": true,
+              "size_bytes": 13629260,
+              "mtime": "2026-07-31T23:39:57"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260628chip-100/20260628chip-100_diff_filtered.csv": {
+              "exists": true,
+              "size_bytes": 11220578,
+              "mtime": "2026-07-31T23:39:57"
+            }
+          }
+        },
+        "plot": {
+          "source_dir": "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots",
+          "timestamp": "2026-08-01T00:04:37",
+          "complete": true,
+          "files": {
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.001_N100/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 78401,
+              "mtime": "2026-08-01T00:04:37"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.001_N100/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 83114,
+              "mtime": "2026-08-01T00:04:38"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.01_N100/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 80654,
+              "mtime": "2026-08-01T00:04:42"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.01_N100/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 84800,
+              "mtime": "2026-08-01T00:04:42"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.05_N100/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 86688,
+              "mtime": "2026-08-01T00:04:46"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.05_N100/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 89531,
+              "mtime": "2026-08-01T00:04:46"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.1_N100/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 88499,
+              "mtime": "2026-08-01T00:04:50"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.1_N100/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 91489,
+              "mtime": "2026-08-01T00:04:50"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.2_N100/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 90572,
+              "mtime": "2026-08-01T00:04:54"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.2_N100/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 92298,
+              "mtime": "2026-08-01T00:04:55"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.5_N100/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 92425,
+              "mtime": "2026-08-01T00:04:59"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/0.5_N100/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 95534,
+              "mtime": "2026-08-01T00:04:59"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/1_N100/read_count_ctrl.png": {
+              "exists": true,
+              "size_bytes": 91399,
+              "mtime": "2026-08-01T00:05:03"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/scatter_slim/20260628chip-100/1_N100/read_count_sample.png": {
+              "exists": true,
+              "size_bytes": 94934,
+              "mtime": "2026-08-01T00:05:03"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.001_N100/bar.png": {
+              "exists": true,
+              "size_bytes": 47474,
+              "mtime": "2026-08-01T00:04:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.001_N100/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 47474,
+              "mtime": "2026-08-01T00:04:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.001_N100/box.png": {
+              "exists": true,
+              "size_bytes": 57602,
+              "mtime": "2026-08-01T00:04:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.001_N100/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 57602,
+              "mtime": "2026-08-01T00:04:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.001_N100/violin.png": {
+              "exists": true,
+              "size_bytes": 61319,
+              "mtime": "2026-08-01T00:04:39"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.001_N100/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 61319,
+              "mtime": "2026-08-01T00:04:40"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.01_N100/bar.png": {
+              "exists": true,
+              "size_bytes": 48910,
+              "mtime": "2026-08-01T00:04:43"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.01_N100/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 54237,
+              "mtime": "2026-08-01T00:04:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.01_N100/box.png": {
+              "exists": true,
+              "size_bytes": 60370,
+              "mtime": "2026-08-01T00:04:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.01_N100/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 58422,
+              "mtime": "2026-08-01T00:04:45"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.01_N100/violin.png": {
+              "exists": true,
+              "size_bytes": 60180,
+              "mtime": "2026-08-01T00:04:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.01_N100/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 62898,
+              "mtime": "2026-08-01T00:04:44"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.05_N100/bar.png": {
+              "exists": true,
+              "size_bytes": 48564,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.05_N100/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 47622,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.05_N100/box.png": {
+              "exists": true,
+              "size_bytes": 62788,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.05_N100/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 61512,
+              "mtime": "2026-08-01T00:04:49"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.05_N100/violin.png": {
+              "exists": true,
+              "size_bytes": 62134,
+              "mtime": "2026-08-01T00:04:48"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.05_N100/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 67280,
+              "mtime": "2026-08-01T00:04:49"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.1_N100/bar.png": {
+              "exists": true,
+              "size_bytes": 50838,
+              "mtime": "2026-08-01T00:04:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.1_N100/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 51069,
+              "mtime": "2026-08-01T00:04:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.1_N100/box.png": {
+              "exists": true,
+              "size_bytes": 68794,
+              "mtime": "2026-08-01T00:04:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.1_N100/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 61739,
+              "mtime": "2026-08-01T00:04:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.1_N100/violin.png": {
+              "exists": true,
+              "size_bytes": 65056,
+              "mtime": "2026-08-01T00:04:52"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.1_N100/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 66022,
+              "mtime": "2026-08-01T00:04:53"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.2_N100/bar.png": {
+              "exists": true,
+              "size_bytes": 58007,
+              "mtime": "2026-08-01T00:04:56"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.2_N100/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 52509,
+              "mtime": "2026-08-01T00:04:57"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.2_N100/box.png": {
+              "exists": true,
+              "size_bytes": 65880,
+              "mtime": "2026-08-01T00:04:56"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.2_N100/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 59743,
+              "mtime": "2026-08-01T00:04:57"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.2_N100/violin.png": {
+              "exists": true,
+              "size_bytes": 62636,
+              "mtime": "2026-08-01T00:04:56"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.2_N100/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 63565,
+              "mtime": "2026-08-01T00:04:57"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.5_N100/bar.png": {
+              "exists": true,
+              "size_bytes": 53164,
+              "mtime": "2026-08-01T00:05:00"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.5_N100/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 49351,
+              "mtime": "2026-08-01T00:05:01"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.5_N100/box.png": {
+              "exists": true,
+              "size_bytes": 67811,
+              "mtime": "2026-08-01T00:05:01"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.5_N100/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 66614,
+              "mtime": "2026-08-01T00:05:02"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.5_N100/violin.png": {
+              "exists": true,
+              "size_bytes": 64161,
+              "mtime": "2026-08-01T00:05:00"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/0.5_N100/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 71906,
+              "mtime": "2026-08-01T00:05:01"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/1_N100/bar.png": {
+              "exists": true,
+              "size_bytes": 57723,
+              "mtime": "2026-08-01T00:05:04"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/1_N100/bar_filtered.png": {
+              "exists": true,
+              "size_bytes": 56082,
+              "mtime": "2026-08-01T00:05:05"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/1_N100/box.png": {
+              "exists": true,
+              "size_bytes": 70871,
+              "mtime": "2026-08-01T00:05:05"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/1_N100/box_filtered.png": {
+              "exists": true,
+              "size_bytes": 63903,
+              "mtime": "2026-08-01T00:05:06"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/1_N100/violin.png": {
+              "exists": true,
+              "size_bytes": 66306,
+              "mtime": "2026-08-01T00:05:05"
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots/population/20260628chip-100/1_N100/violin_filtered.png": {
+              "exists": true,
+              "size_bytes": 67434,
+              "mtime": "2026-08-01T00:05:06"
+            }
+          }
+        }
+      }
+    },
+    "20260127humangenecontrol": {
+      "is_control": true,
+      "raw_dir": "/data/lulab_commonspace/yaozonglin/20260127humangenecontrol/00.mergeRawFq",
+      "samples": {
+        "UDI001": {
+          "raw_fq_dir": "/data/lulab_commonspace/yaozonglin/20260127humangenecontrol/00.mergeRawFq/UDI001",
+          "steps": {
+            "qc": {
+              "source_dir": "/data/lulab_commonspace/yaozonglin/20260127humangenecontrol/00.mergeRawFq/UDI001/results/01_qc",
+              "timestamp": "2026-07-31T19:09:03",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/1.QC/20260127humangenecontrol/UDI001_clean_1.fq.gz": {
+                  "exists": true,
+                  "size_bytes": 6365445452,
+                  "mtime": "2026-07-31T19:09:03"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/1.QC/20260127humangenecontrol/UDI001_clean_2.fq.gz": {
+                  "exists": true,
+                  "size_bytes": 6982760778,
+                  "mtime": "2026-07-31T19:09:18"
+                }
+              }
+            },
+            "align": {
+              "source_dir": "/data/lulab_commonspace/yaozonglin/20260127humangenecontrol/00.mergeRawFq/UDI001/results/03_bam",
+              "timestamp": "2026-07-31T19:09:27",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/2.Alignment/20260127humangenecontrol/UDI001_aligned.sorted.bam": {
+                  "exists": true,
+                  "size_bytes": 13020276684,
+                  "mtime": "2026-07-31T19:09:27"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/2.Alignment/20260127humangenecontrol/UDI001_aligned.sorted.bam.bai": {
+                  "exists": true,
+                  "size_bytes": 5493624,
+                  "mtime": "2026-07-31T19:09:27"
+                }
+              }
+            },
+            "count": {
+              "source_dir": "/data/lulab_commonspace/guozehua/worf_benchmark/saturation_runs/20260127humangenecontrol_on/frac_1",
+              "timestamp": "2026-07-31T22:58:15",
+              "complete": true,
+              "files": {
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260127humangenecontrol/UDI001_reads.parquet": {
+                  "exists": true,
+                  "size_bytes": 1860485323,
+                  "mtime": "2026-07-31T22:58:15"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260127humangenecontrol/on_target_counts.csv": {
+                  "exists": true,
+                  "size_bytes": 3403628,
+                  "mtime": "2026-07-31T22:58:15"
+                },
+                "/data/lulab_commonspace/guozehua/worf_pipeline/3.Counts/20260127humangenecontrol/off_target_counts.csv": {
+                  "exists": true,
+                  "size_bytes": 6011531,
+                  "mtime": "2026-07-31T22:58:15"
+                }
+              }
+            }
+          }
+        }
+      },
+      "steps": {
+        "diff": {
+          "source_dir": "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol",
+          "timestamp": "2026-08-01T00:05:30",
+          "complete": false,
+          "files": {
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_on_diff_0.001.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_off_diff_0.001.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.001.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.001_filtered.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_on_diff_0.01.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_off_diff_0.01.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.01.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.01_filtered.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_on_diff_0.05.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_off_diff_0.05.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.05.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.05_filtered.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_on_diff_0.1.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_off_diff_0.1.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.1.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.1_filtered.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_on_diff_0.2.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_off_diff_0.2.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.2.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.2_filtered.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_on_diff_0.5.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_off_diff_0.5.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.5.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_0.5_filtered.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_on_diff.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_off_diff.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            },
+            "/data/lulab_commonspace/guozehua/worf_pipeline/4.Diff/20260127humangenecontrol/20260127humangenecontrol_diff_filtered.csv": {
+              "exists": false,
+              "size_bytes": null,
+              "mtime": null
+            }
+          }
+        },
+        "plot": {
+          "source_dir": "/data/lulab_commonspace/guozehua/worf_pipeline/5.Plots",
+          "timestamp": "2026-08-01T00:05:30",
+          "complete": false,
+          "files": {}
+        }
+      }
+    }
+  }
+}
