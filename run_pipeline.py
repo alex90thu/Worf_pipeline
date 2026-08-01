@@ -431,8 +431,8 @@ def parse_args():
                    help="按实验指定绘图 N 值，可多次，如 --n-rows-per-exp 20260508WORFT5-SNAP:10000")
     p.add_argument("--exclude-chrm", action="store_true", help="绘图排除 chrM")
     p.add_argument("--cap-auto", action="store_true", help="绘图自动 outlier 裁剪")
-    p.add_argument("--y-cap", type=str, default="iqr", choices=["iqr", "p99", "max"],
-                   help="散点图稳健 y 上限策略（默认 iqr = Q3+1.5*IQR；p99 / max）")
+    p.add_argument("--y-cap", type=str, default="topk", choices=["topk", "iqr", "p99", "max"],
+                   help="散点图稳健 y 上限策略（默认 topk = 只保留顶部少数点到微缩轴；iqr / p99 / max 也可选）")
     p.add_argument("--no-population", action="store_true", help="跳过群体统计图")
     p.add_argument("--keep-sam", action="store_true", help="保留中间 SAM 文件")
     p.add_argument("--dry-run", action="store_true", help="只打印将执行的命令，不实际执行")
