@@ -103,6 +103,27 @@ def write_max50_log(output_dir, label, frac, n, df, ylim_shared, scale_str):
     print(f"  max50.log 已写入: {log_path}")
 
 
+def build_control_outlier_report(df, topk=10, min_ctrl=10):
+    """构造 control-side outlier 报告，供 max50.log / 交互确认使用。
+
+    只做筛查与排序，不自动删数据。返回按 read_count_ctrl 降序排序的候选行。
+    """
+    if df is None or df.empty:
+        return pd.DataFrame(columns=[
+            "target_id", "gene_name", "chromosome", "start_bp", "end_bp",
+            "on_target", "read_count_ctrl", "read_count_sample", "diff"
+        ])
+
+    report_df = df.copy()
+    if "read_count_ctrl" not in report_df.columns:
+        return report_df.iloc[0:0].copy()
+
+    report_df = report_df[report_df["read_count_ctrl"].fillna(-1) >= min_ctrl].copy()
+    report_df = report_df.sort_values(["read_count_ctrl", "read_count_sample"], ascending=[False, False])
+    report_df = report_df.head(topk).reset_index(drop=True)
+    return report_df
+
+
 def auto_cap(values):
     """基于 min / median / mean 自动估算 ctrl 背景 outlier 裁剪阈值。
 
@@ -197,8 +218,8 @@ def compute_robust_ylim(df, cap_mode="topk", topk=5):
     return (y_min, y_max), stats
 
 
-def write_max50_log(output_dir, label, frac, n, stats, ylim_shared, scale_str):
-    """写入 max50.log，记录统计量与断轴位置判断信息。"""
+def write_max50_log(output_dir, label, frac, n, stats, ylim_shared, scale_str, df=None):
+    """写入 max50.log，记录统计量、断轴判断信息，并附带 control-side 候选 outlier 报告。"""
     lines = [
         f"# max50.log — read count distribution diagnostic",
         f"# experiment: {label}",
@@ -225,6 +246,22 @@ def write_max50_log(output_dir, label, frac, n, stats, ylim_shared, scale_str):
             lines.append(f"[{col_name}] top 50 (max={vals[0] if vals else 0}):")
             for i, v in enumerate(vals, start=1):
                 lines.append(f"  {i:2d}. {v}")
+            lines.append("")
+
+    if df is not None and not df.empty:
+        report_df = build_control_outlier_report(df, topk=10, min_ctrl=10)
+        if not report_df.empty:
+            lines.append("[control_outlier_candidates] top 10 (report-only, no auto-removal):")
+            for i, row in report_df.iterrows():
+                target_id = row.get("target_id", "")
+                gene_name = row.get("gene_name", "")
+                on_target = row.get("on_target", "")
+                ctrl = row.get("read_count_ctrl", "")
+                sample = row.get("read_count_sample", "")
+                lines.append(
+                    f"  {i+1:2d}. target_id={target_id} gene_name={gene_name} on_target={on_target} "
+                    f"read_count_ctrl={ctrl} read_count_sample={sample}"
+                )
             lines.append("")
 
     log_path = os.path.join(output_dir, "max50.log")
@@ -508,9 +545,9 @@ def main():
                                   include_chrM=cfg['include_chrM'], ylim=ylim_shared,
                                   global_abs_max=stats['abs_max'])
 
-                # ---- 写 max50.log（诊断 y 轴 scale 用，含完整统计量）----
+                # ---- 写 max50.log（诊断 y 轴 scale 用，含完整统计量和 control-side 候选 outlier）----
                 write_max50_log(OUTPUT_DIR, label, args.frac, n,
-                                stats, ylim_shared, scale_str)
+                                stats, ylim_shared, scale_str, df=df_subset)
 
     print("\n✅ Done!")
 

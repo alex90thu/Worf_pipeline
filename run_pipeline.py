@@ -266,15 +266,60 @@ def _load_counts(path: Path) -> dict:
     return pd.read_csv(path).set_index("target_id")
 
 
-def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool):
+def _normalize_n_values(value):
+    """把绘图 N 值（int / str / list）规范化为 int 列表。
+
+    同一实验可配置多个 N（如 [10000, 80000]），绘图阶段会对每个 N 各生成一批图
+    （输出目录 {frac}_N{n}/，互不覆盖）。
+    """
+    if value is None:
+        return [80000]
+    if isinstance(value, (list, tuple)):
+        out = []
+        for v in value:
+            try:
+                out.append(int(v))
+            except (TypeError, ValueError):
+                continue
+        return out or [80000]
+    try:
+        return [int(value)]
+    except (TypeError, ValueError):
+        return [80000]
+
+
+def _apply_diff_blacklist(df, blacklist: dict):
+    """按 gene_name / target_id 黑名单过滤计数表。"""
+    if not blacklist:
+        return df
+
+    target_ids = {str(x) for x in blacklist.get("target_ids", [])}
+    gene_names = {str(x).strip() for x in blacklist.get("gene_names", [])}
+    if not target_ids and not gene_names:
+        return df
+
+    mask = False
+    if "gene_name" in df.columns:
+        mask = df["gene_name"].astype(str).isin(gene_names)
+    if target_ids:
+        mask = mask | df.index.astype(str).isin(target_ids)
+
+    return df.loc[~mask]
+
+
+def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool, blacklist: dict = None):
     """按 target_id 对齐实验组与对照组，计算 diff，排序并输出。
 
     在计算前先滤掉来自 chrM 的条目（线粒体基因组计数会对全图造成干扰）。
+    并可根据黑名单移除指定 gene_name / target_id。
     """
     import pandas as pd
     # 滤掉 chrM（on/off counts 中都可能有）
     exp_df = exp_df[~exp_df["chromosome"].astype(str).str.startswith("chrM")]
     ctrl_df = ctrl_df[~ctrl_df["chromosome"].astype(str).str.startswith("chrM")]
+
+    exp_df = _apply_diff_blacklist(exp_df, blacklist)
+    ctrl_df = _apply_diff_blacklist(ctrl_df, blacklist)
 
     df = exp_df.join(ctrl_df["read_count"].rename("ctrl"), how="left")
     df["read_count_ctrl"] = df["ctrl"].fillna(0).astype(int)
@@ -291,7 +336,7 @@ def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool):
     return out
 
 
-def step_diff(cfg: dict, exps: list, force: bool) -> bool:
+def step_diff(cfg: dict, exps: list, force: bool, apply_blacklist: bool = False) -> bool:
     diff_root = Path(cfg["workflow_root"]) / "4.Diff"
     diff_root.mkdir(parents=True, exist_ok=True)
 
@@ -335,7 +380,8 @@ def step_diff(cfg: dict, exps: list, force: bool) -> bool:
                     continue
                 exp_df = _load_counts(exp_csv)
                 ctrl_df = _load_counts(ctrl_csv)
-                _make_diff(exp_df, ctrl_df, out_csv, ascend)
+                blacklist = cfg.get("diff_blacklist") if apply_blacklist else None
+                _make_diff(exp_df, ctrl_df, out_csv, ascend, blacklist)
                 log(f"[diff] {exp} {kind} @{frac}: → {out_csv}")
 
             # 合并 on/off -> {exp}_diff{suffix}.csv
@@ -377,12 +423,13 @@ def step_plot(cfg: dict, exps: list, args) -> bool:
 
     for frac in FRACTIONS:
         # scatter_slim：每个实验单独调用，data-dir 指向 4.Diff/{exp}/
+        # 同一实验可配置多个 N，plot_by_n_s 一次调用生成 {frac}_N{n} 多批图
         if scatter_script.exists():
             scatter_root = plots_root / "scatter_slim"
             for exp in dates:
-                n_rows = args.n_rows_map.get(exp, 80000)
+                n_list = _normalize_n_values(args.n_rows_map.get(exp, 80000))
                 cmd = [python, str(scatter_script),
-                       "--n-rows", str(n_rows),
+                       "--n-rows"] + [str(n) for n in n_list] + [
                        "--data-dir", str(diff_root / exp),
                        "--output-root", str(scatter_root),
                        "--frac", frac,
@@ -392,26 +439,28 @@ def step_plot(cfg: dict, exps: list, args) -> bool:
                     cmd.append("--exclude-chrm")
                 if args.cap_auto:
                     cmd.append("--cap-auto")
-                if not run(cmd, desc=f"[plot] scatter_slim {exp} @{frac} (N={n_rows})"):
+                n_tag = "/".join(str(n) for n in n_list)
+                if not run(cmd, desc=f"[plot] scatter_slim {exp} @{frac} (N={n_tag})"):
                     return False
         else:
             log("[warn] 跳过 scatter_slim：脚本缺失")
 
-        # population：每个实验单独调用
+        # population：每个实验单独调用（脚本只接受单个 N，多 N 时逐个调用）
         if pop_script.exists() and not args.no_population:
             pop_root = plots_root / "population"
             for exp in dates:
-                n_rows = args.n_rows_map.get(exp, 80000)
-                cmd = [python, str(pop_script),
-                       "--data-dir", str(diff_root / exp),
-                       "--output-root", str(pop_root),
-                       "--n-rows", str(n_rows),
-                       "--frac", frac,
-                       "--dates", exp]
-                if args.exclude_chrm:
-                    cmd.append("--exclude-chrm")
-                if not run(cmd, desc=f"[plot] population {exp} @{frac} (N={n_rows})"):
-                    return False
+                n_list = _normalize_n_values(args.n_rows_map.get(exp, 80000))
+                for n_rows in n_list:
+                    cmd = [python, str(pop_script),
+                           "--data-dir", str(diff_root / exp),
+                           "--output-root", str(pop_root),
+                           "--n-rows", str(n_rows),
+                           "--frac", frac,
+                           "--dates", exp]
+                    if args.exclude_chrm:
+                        cmd.append("--exclude-chrm")
+                    if not run(cmd, desc=f"[plot] population {exp} @{frac} (N={n_rows})"):
+                        return False
     return True
 
 
@@ -427,10 +476,12 @@ def parse_args():
     p.add_argument("--force", action="store_true", help="强制重跑（覆盖已存在输出）")
     p.add_argument("--n-rows", type=int, default=None,
                    help="绘图每 on/off 组取行数（默认用 config.n_rows，可被 --n-rows-per-exp 覆盖）")
-    p.add_argument("--n-rows-per-exp", action="append", default=[], metavar="EXP:N",
-                   help="按实验指定绘图 N 值，可多次，如 --n-rows-per-exp 20260508WORFT5-SNAP:10000")
+    p.add_argument("--n-rows-per-exp", action="append", default=[], metavar="EXP:N[,N...]",
+                   help="按实验指定绘图 N 值，可多次，支持多值，如 --n-rows-per-exp 20260508WORFT5-SNAP:10000,80000")
     p.add_argument("--exclude-chrm", action="store_true", help="绘图排除 chrM")
     p.add_argument("--cap-auto", action="store_true", help="绘图自动 outlier 裁剪")
+    p.add_argument("--apply-diff-blacklist", action="store_true",
+                   help="启用 config.json 中的 diff_blacklist，真正从 diff 输出中移除这些条目")
     p.add_argument("--y-cap", type=str, default="topk", choices=["topk", "iqr", "p99", "max"],
                    help="散点图稳健 y 上限策略（默认 topk = 只保留顶部少数点到微缩轴；iqr / p99 / max 也可选）")
     p.add_argument("--no-population", action="store_true", help="跳过群体统计图")
@@ -451,23 +502,38 @@ def main():
     log(f"实验列表: {[f'{e}(ctrl)' if c else e for e, c in exps]}")
 
     # ---- 解析按实验的 N 值（仅 plot 用；前 4 步不涉及 N）----
-    # 优先级: --n-rows-per-exp EXP:N > --n-rows > config.n_rows[exp] > 80000
+    # 优先级: --n-rows-per-exp EXP:N[,N...] > --n-rows > config.n_rows[exp] > 80000
+    # N 支持多个（如 10000,80000），同一实验会生成多批图
     per_exp_n = {}
     for item in args.n_rows_per_exp:
         if ":" not in item:
-            log(f"[WARN] --n-rows-per-exp 格式应为 EXP:N，忽略: {item}")
+            log(f"[WARN] --n-rows-per-exp 格式应为 EXP:N 或 EXP:N1,N2，忽略: {item}")
             continue
         exp_key, n_str = item.split(":", 1)
-        try:
-            per_exp_n[exp_key.strip()] = int(n_str.strip())
-        except ValueError:
-            log(f"[WARN] 无效 N 值: {item}")
+        vals = []
+        for part in n_str.split(","):
+            part = part.strip()
+            if not part:
+                continue
+            try:
+                vals.append(int(part))
+            except ValueError:
+                log(f"[WARN] 无效 N 值: {part}")
+        if vals:
+            per_exp_n[exp_key.strip()] = vals
+        else:
+            log(f"[WARN] --n-rows-per-exp 无有效 N，忽略: {item}")
+
     cfg_n_rows = cfg.get("n_rows", {})
     global_n = args.n_rows if args.n_rows is not None else None
     args.n_rows_map = {}
     for exp, _ in exps:
-        n = per_exp_n.get(exp, global_n if global_n is not None
-                          else cfg_n_rows.get(exp, 80000))
+        if exp in per_exp_n:
+            n = per_exp_n[exp]
+        elif global_n is not None:
+            n = _normalize_n_values(global_n)
+        else:
+            n = _normalize_n_values(cfg_n_rows.get(exp, 80000))
         args.n_rows_map[exp] = n
     log("按实验绘图 N 值: " + ", ".join(f"{e}={n}" for e, n in args.n_rows_map.items()))
 
@@ -492,7 +558,7 @@ def main():
                 sys.exit(1)
 
     if "diff" in steps:
-        if not step_diff(cfg, exps, args.force):
+        if not step_diff(cfg, exps, args.force, apply_blacklist=args.apply_diff_blacklist):
             sys.exit(1)
 
     if "plot" in steps:

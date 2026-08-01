@@ -13,6 +13,11 @@
     "on": "targets/on.csv",
     "off": "targets/off.csv"
   },
+  "diff_blacklist": {
+    "enabled": false,
+    "target_ids": [39, 97092, 56105, 43822, 133590, 2475, 58214],
+    "gene_names": ["MTATP6P1", "PRSS12", "TRIM25", "ISL2", "FSIP2LP", "MECR", "ROCK1P1"]
+  },
   "workflow_root": "/data/lulab_commonspace/guozehua/worf_pipeline",
   "window": 150,
   "mapq_threshold": 30,
@@ -20,7 +25,7 @@
   "threads": 8,
   "fastp_extra_args": "-Q -L",
   "n_rows": {
-    "20260508WORFT5-SNAP": 80000,
+    "20260508WORFT5-SNAP": [10000, 80000],
     "20260615sc-WORF": 1000,
     "20260628chip-100": 100
   }
