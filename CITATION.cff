@@ -8,6 +8,6 @@ authors:
     given-names: "Zonglin"
 title: "Worf_pipeline: A pipeline for Whole Open-Reading-Frame Sequencing analysis"
 version: "v1.0.0"
-doi: "10.5281/zenodo.XXXXXXX" # 首次发布后填充 Zenodo 生成的 DOI
+doi: "10.5281/zenodo.21758975" # 首次发布后填充 Zenodo 生成的 DOI
 date-released: 2026-08-02
 url: "https://github.com/alex90thu/Worf_pipeline"
