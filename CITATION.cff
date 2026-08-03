@@ -6,6 +6,7 @@ authors:
     orcid: "https://orcid.org/0000-0002-7894-498X"
   - family-names: "Yao"
     given-names: "Zonglin"
+    orcid: "https://orcid.org/0009-0008-5871-7764"
 title: "Worf_pipeline: A pipeline for Whole Open-Reading-Frame Sequencing analysis"
 version: "v1.0.0"
 doi: "10.5281/zenodo.21758975" # 首次发布后填充 Zenodo 生成的 DOI
