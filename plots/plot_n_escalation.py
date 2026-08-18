@@ -14,7 +14,7 @@
 用法：
     python plots/plot_n_escalation.py --frac 1
     python plots/plot_n_escalation.py --frac 0.5 \
-        --exp-n 20260628chip-100:100 20260615sc-WORF:1000 20260508WORFT5-SNAP:10000 20260508WORFT5-SNAP:80000
+        --exp-n 20260622chip-100:100 20260615sc-WORF:1000 20260508WORFT5-SNAP:10000 20260508WORFT5-SNAP:80000
 """
 import argparse
 import json
@@ -45,11 +45,15 @@ OUT_DIR = os.path.join(ROOT, 'output', '5.Plots')
 
 # 默认 (实验, N) 对（来自 config.n_rows；WORFT5-SNAP 同时保留 N=10,000 与 N=80,000）
 DEFAULT_EXP_N = [
-    ('20260628chip-100', 100),
+    ('20260622chip-100', 100),
     ('20260615sc-WORF', 1000),
     ('20260508WORFT5-SNAP', 10000),
     ('20260508WORFT5-SNAP', 80000),
 ]
+
+# 绘图 N 值 → 需过滤的芯片标记列（diff 文件由 pipeline 附带 in_*_chip 列）。
+# 80k 芯片是全量位点，不过滤；其余小芯片只统计本芯片内的位点。
+CHIP_COL_BY_N = {100: 'in_100_chip', 1000: 'in_1k_chip', 10000: 'in_10k_chip'}
 
 
 def frac_suffix(frac):
@@ -67,6 +71,13 @@ def load_group_stats(exp, n, frac, filter_suffix=''):
     if not os.path.exists(path):
         raise FileNotFoundError(f'missing diff file: {path}')
     df = pd.read_csv(path)
+    # 芯片过滤：小芯片只统计本芯片内的位点（diff 已附带 in_*_chip 列）。
+    # 过滤发生在取 top N 之前，避免混入非本芯片位点；80k 全量不过滤。
+    chip_col = CHIP_COL_BY_N.get(n)
+    if chip_col and chip_col in df.columns:
+        n_before = len(df)
+        df = df[df[chip_col]].copy()
+        print(f'  芯片过滤({exp}, {chip_col}): {n_before} → {len(df)} 行')
     on = df[df['on_target'] == True].head(n)
     off = df[df['on_target'] == False].head(n)
 
@@ -139,7 +150,7 @@ def main():
     parser.add_argument('--frac', type=str, default='1',
                         help='Saturation depth fraction (default: 1 = full depth)')
     parser.add_argument('--exp-n', nargs='+', type=str, default=None,
-                        help='(Experiment:N) list, overrides defaults, e.g. 20260628chip-100:100 '
+                        help='(Experiment:N) list, overrides defaults, e.g. 20260622chip-100:100 '
                              '20260615sc-WORF:1000 20260508WORFT5-SNAP:10000 20260508WORFT5-SNAP:80000')
     parser.add_argument('--scale', type=str, choices=['auto', 'linear', 'log'], default='auto',
                         help='WORF-SEQ subplot y-scale (default: auto → log if ON range >2 orders)')
