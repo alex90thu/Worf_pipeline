@@ -7,7 +7,7 @@
   "experiments": [
     "20260508WORFT5-SNAP",
     "20260615sc-WORF",
-    "20260628chip-100"
+    "20260622chip-100"
   ],
   "targets": {
     "on": "targets/on.csv",
@@ -27,6 +27,6 @@
   "n_rows": {
     "20260508WORFT5-SNAP": [10000, 80000],
     "20260615sc-WORF": 1000,
-    "20260628chip-100": 100
+    "20260622chip-100": 100
   }
 }
