@@ -349,12 +349,34 @@ def load_chip_flags(path: Path) -> dict:
     return index
 
 
-def mark_chip_membership(df, chip_index: dict, tol: int = CHIP_MATCH_TOL):
+def load_gene_chip_flags(chip_index: dict) -> dict:
+    """派生基因级芯片归属：gene -> [in_10k, in_1k, in_100]。
+
+    off 位点按基因归属到芯片（off 是 sgRNA 的脱靶位点，可能远离 sgRNA 甚至跨染色体，
+    只能按基因归属，不能用坐标邻近匹配）。
+    """
+    flags = {}
+    for (gene, _chrom), hits in chip_index.items():
+        f = flags.setdefault(gene, [False, False, False])
+        for _sc, in10, in1, in100 in hits:
+            if in10:
+                f[0] = True
+            if in1:
+                f[1] = True
+            if in100:
+                f[2] = True
+    return flags
+
+
+def mark_chip_membership(df, chip_index: dict, tol: int = CHIP_MATCH_TOL, mode: str = "near"):
     """为 diff 表（须含 gene_name / chromosome / center 列）附加 in_10k/in_1k/in_100 标记列。
 
-    匹配规则：同基因、同染色体、target 中心与某 sgRNA 位点中心差 ≤ tol(默认 300bp)，
-    视为同一位置，取该 sgRNA 的芯片归属标记（多个命中做 OR 合并）。
-    匹配不到任何 sgRNA 的行标记为全 False（即不属于任何小芯片）。
+    mode="near"（on 位点）：同基因、同染色体、target 中心与某 sgRNA 位点中心差 ≤ tol(默认 300bp)，
+        视为同一位置，取该 sgRNA 的芯片归属标记（多个命中做 OR 合并）。
+    mode="far"（off 位点）：off 是 sgRNA 的脱靶位点，应远离 sgRNA，故不能按坐标邻近匹配；
+        改为按基因归属——基因属于芯片即标记该 off 属于芯片，但**剔除**落在该基因 sgRNA
+        ± tol 内的"近异常"位点（它们实为靶点附近而非脱靶）。
+    匹配不到任何 sgRNA / 基因的行标记为全 False（即不属于任何小芯片）。
     """
     n = len(df)
     f10 = [False] * n
@@ -363,19 +385,43 @@ def mark_chip_membership(df, chip_index: dict, tol: int = CHIP_MATCH_TOL):
     genes = df["gene_name"].astype(str).str.strip()
     chroms = df["chromosome"].astype(str)
     centers = df["center"].astype(int).values
-    for i in range(n):
-        hits = chip_index.get((genes.iat[i], chroms.iat[i]))
-        if not hits:
-            continue
-        c = centers[i]
-        for sc, in10, in1, in100 in hits:
-            if abs(sc - c) <= tol:
-                if in10:
-                    f10[i] = True
-                if in1:
-                    f1[i] = True
-                if in100:
-                    f100[i] = True
+
+    if mode == "near":
+        for i in range(n):
+            hits = chip_index.get((genes.iat[i], chroms.iat[i]))
+            if not hits:
+                continue
+            c = centers[i]
+            for sc, in10, in1, in100 in hits:
+                if abs(sc - c) <= tol:
+                    if in10:
+                        f10[i] = True
+                    if in1:
+                        f1[i] = True
+                    if in100:
+                        f100[i] = True
+    else:  # mode == "far"（off 位点）
+        gene_flags = load_gene_chip_flags(chip_index)
+        for i in range(n):
+            g = genes.iat[i]
+            gf = gene_flags.get(g)
+            if not gf or not any(gf):
+                continue
+            # 剔除近异常：若同染色体存在**属于本芯片**的 sgRNA 距该 off ≤ tol，
+            # 则该位点实为靶点附近而非脱靶，不能算作本芯片的 off。
+            near = [False, False, False]
+            for sc, in10, in1, in100 in chip_index.get((g, chroms.iat[i]), []):
+                if abs(sc - centers[i]) <= tol:
+                    if in10:
+                        near[0] = True
+                    if in1:
+                        near[1] = True
+                    if in100:
+                        near[2] = True
+            f10[i] = gf[0] and not near[0]
+            f1[i] = gf[1] and not near[1]
+            f100[i] = gf[2] and not near[2]
+
     df["in_10k_chip"] = f10
     df["in_1k_chip"] = f1
     df["in_100_chip"] = f100
@@ -383,13 +429,14 @@ def mark_chip_membership(df, chip_index: dict, tol: int = CHIP_MATCH_TOL):
 
 
 def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool, blacklist: dict = None,
-               chip_index: dict = None):
+               chip_index: dict = None, kind: str = "on"):
     """按 target_id 对齐实验组与对照组，计算 diff，排序并输出。
 
     在计算前先滤掉来自 chrM 的条目（线粒体基因组计数会对全图造成干扰）。
     并可根据黑名单移除指定 gene_name / target_id。
     若提供 chip_index，输出会附带 in_10k_chip / in_1k_chip / in_100_chip 三列，
     标记每个 target 属于哪个小芯片（供绘图按 N 值过滤本芯片位点）。
+    kind 决定标记规则：on 用坐标邻近匹配（near），off 用基因归属+剔除近异常（far）。
     """
     import pandas as pd
     # 滤掉 chrM（on/off counts 中都可能有）
@@ -409,7 +456,7 @@ def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool, blacklist: dict = 
               "gene_name", "chromosome", "start_bp", "end_bp"]].copy()
     out["center"] = ((out["start_bp"] + out["end_bp"]) // 2)
     if chip_index is not None:
-        mark_chip_membership(out, chip_index)
+        mark_chip_membership(out, chip_index, mode=("near" if kind == "on" else "far"))
     out = out.sort_values("diff", ascending=ascend)
     out.insert(0, "target_id", out.index)
     out.to_csv(out_path, index=False)
@@ -470,7 +517,7 @@ def step_diff(cfg: dict, exps: list, force: bool, apply_blacklist: bool = False)
                 exp_df = _load_counts(exp_csv)
                 ctrl_df = _load_counts(ctrl_csv)
                 blacklist = cfg.get("diff_blacklist") if apply_blacklist else None
-                _make_diff(exp_df, ctrl_df, out_csv, ascend, blacklist, chip_index)
+                _make_diff(exp_df, ctrl_df, out_csv, ascend, blacklist, chip_index, kind)
                 log(f"[diff] {exp} {kind} @{frac}: → {out_csv}")
 
             # 合并 on/off -> {exp}_diff{suffix}.csv
