@@ -35,6 +35,7 @@ WORF Targeted-Sequencing Unified Pipeline
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime
@@ -48,6 +49,14 @@ STEPS_ORDER = ["qc", "align", "count", "diff", "plot"]
 # saturation 深度比例（counts 按此 7 种深度分别计算 diff / plot）
 # 对应 3.Counts/{exp}/{kind}_target_counts_{frac}.csv
 FRACTIONS = ["0.001", "0.01", "0.05", "0.1", "0.2", "0.5", "1"]
+
+# 芯片位点标记文件（80k 全集 + in_10k/in_1k/in_100 布尔列）。
+# diff 输出的每一行（target）会按"同基因 + 同染色体 + 位置差 ≤ CHIP_MATCH_TOL"匹配到
+# 该文件中的 sgRNA 位点，从而附加三列芯片归属标记；绘图时按 N 值对应的小芯片过滤。
+CHIP_CSV = PIPELINE_ROOT / "chips" / "chip-80k_sgRNA_with_subset_flags.csv"
+CHIP_MATCH_TOL = 300  # bp
+# 绘图 N 值 → 需过滤的芯片标记列（80k 芯片是全集，不过滤）
+CHIP_COL_BY_N = {100: "in_100_chip", 1000: "in_1k_chip", 10000: "in_10k_chip"}
 
 args_singleton = None  # 全局 CLI 参数（供步骤函数读取），在 main 中赋值
 
@@ -307,11 +316,80 @@ def _apply_diff_blacklist(df, blacklist: dict):
     return df.loc[~mask]
 
 
-def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool, blacklist: dict = None):
+# ---------------------------------------------------------------- chip 归属标记
+_SITE_RE = re.compile(r"^chr[\w]+\(([+-])\):(\d+)-(\d+)$")
+
+
+def load_chip_flags(path: Path) -> dict:
+    """解析 chip 标记 csv，构建 (gene_name, chromosome) -> [(sgRNA_center, in_10k, in_1k, in_100)]。
+
+    80k 全集文件中每一行是一个 sgRNA 设计位点（0-MM sites 列，可含多个 `; ` 分隔的位点），
+    并带有 in_10k_chip / in_1k_chip / in_100_chip 三列布尔标记。
+    """
+    import pandas as pd
+    chip = pd.read_csv(path, encoding="utf-8-sig")
+    index = {}
+    for gene, site, in10, in1, in100 in zip(
+        chip["Gene symbol"],
+        chip["0-MM sites"].astype(str),
+        chip["in_10k_chip"],
+        chip["in_1k_chip"],
+        chip["in_100_chip"],
+    ):
+        for part in site.split(";"):
+            part = part.strip()
+            m = _SITE_RE.search(part)
+            if not m:
+                continue
+            chrom = part.split("(")[0]
+            center = (int(m.group(2)) + int(m.group(3))) // 2
+            index.setdefault((str(gene).strip(), chrom), []).append(
+                (center, bool(in10), bool(in1), bool(in100))
+            )
+    return index
+
+
+def mark_chip_membership(df, chip_index: dict, tol: int = CHIP_MATCH_TOL):
+    """为 diff 表（须含 gene_name / chromosome / center 列）附加 in_10k/in_1k/in_100 标记列。
+
+    匹配规则：同基因、同染色体、target 中心与某 sgRNA 位点中心差 ≤ tol(默认 300bp)，
+    视为同一位置，取该 sgRNA 的芯片归属标记（多个命中做 OR 合并）。
+    匹配不到任何 sgRNA 的行标记为全 False（即不属于任何小芯片）。
+    """
+    n = len(df)
+    f10 = [False] * n
+    f1 = [False] * n
+    f100 = [False] * n
+    genes = df["gene_name"].astype(str).str.strip()
+    chroms = df["chromosome"].astype(str)
+    centers = df["center"].astype(int).values
+    for i in range(n):
+        hits = chip_index.get((genes.iat[i], chroms.iat[i]))
+        if not hits:
+            continue
+        c = centers[i]
+        for sc, in10, in1, in100 in hits:
+            if abs(sc - c) <= tol:
+                if in10:
+                    f10[i] = True
+                if in1:
+                    f1[i] = True
+                if in100:
+                    f100[i] = True
+    df["in_10k_chip"] = f10
+    df["in_1k_chip"] = f1
+    df["in_100_chip"] = f100
+    return df
+
+
+def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool, blacklist: dict = None,
+               chip_index: dict = None):
     """按 target_id 对齐实验组与对照组，计算 diff，排序并输出。
 
     在计算前先滤掉来自 chrM 的条目（线粒体基因组计数会对全图造成干扰）。
     并可根据黑名单移除指定 gene_name / target_id。
+    若提供 chip_index，输出会附带 in_10k_chip / in_1k_chip / in_100_chip 三列，
+    标记每个 target 属于哪个小芯片（供绘图按 N 值过滤本芯片位点）。
     """
     import pandas as pd
     # 滤掉 chrM（on/off counts 中都可能有）
@@ -330,6 +408,8 @@ def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool, blacklist: dict = 
     out = df[["read_count_ctrl", "read_count_sample", "diff",
               "gene_name", "chromosome", "start_bp", "end_bp"]].copy()
     out["center"] = ((out["start_bp"] + out["end_bp"]) // 2)
+    if chip_index is not None:
+        mark_chip_membership(out, chip_index)
     out = out.sort_values("diff", ascending=ascend)
     out.insert(0, "target_id", out.index)
     out.to_csv(out_path, index=False)
@@ -339,6 +419,15 @@ def _make_diff(exp_df, ctrl_df, out_path: Path, ascend: bool, blacklist: dict = 
 def step_diff(cfg: dict, exps: list, force: bool, apply_blacklist: bool = False) -> bool:
     diff_root = Path(cfg["workflow_root"]) / "4.Diff"
     diff_root.mkdir(parents=True, exist_ok=True)
+
+    # 加载芯片归属标记（80k 全集 + 小芯片布尔列），为每个 diff 输出附加三列。
+    # 文件缺失时降级为不附加（保持旧行为，向后兼容）。
+    chip_index = None
+    if CHIP_CSV.exists():
+        chip_index = load_chip_flags(CHIP_CSV)
+        log(f"[diff] 加载芯片标记: {CHIP_CSV.name}（{len(chip_index)} 个 基因×染色体 分组）")
+    else:
+        log(f"[warn] 未找到芯片标记文件: {CHIP_CSV}，diff 不附加芯片列")
 
     control = cfg["control_exp"]
     counts_base = Path(cfg["workflow_root"]) / "3.Counts"
@@ -381,7 +470,7 @@ def step_diff(cfg: dict, exps: list, force: bool, apply_blacklist: bool = False)
                 exp_df = _load_counts(exp_csv)
                 ctrl_df = _load_counts(ctrl_csv)
                 blacklist = cfg.get("diff_blacklist") if apply_blacklist else None
-                _make_diff(exp_df, ctrl_df, out_csv, ascend, blacklist)
+                _make_diff(exp_df, ctrl_df, out_csv, ascend, blacklist, chip_index)
                 log(f"[diff] {exp} {kind} @{frac}: → {out_csv}")
 
             # 合并 on/off -> {exp}_diff{suffix}.csv

@@ -23,6 +23,10 @@ FIG_WIDTH_INCH = FIG_WIDTH_CM * CM_TO_INCH  # ≈ 7.09"
 chrom_order = [f'chr{i}' for i in range(1, 23)] + ['chrX', 'chrY', 'chrM']
 chrom_order_no_m = [f'chr{i}' for i in range(1, 23)] + ['chrX', 'chrY']
 
+# 绘图 N 值 → 需过滤的芯片标记列（diff 文件由 pipeline 附带 in_*_chip 列）。
+# 80k 芯片是全量位点，不过滤；其余小芯片只画本芯片内的位点。
+CHIP_COL_BY_N = {100: 'in_100_chip', 1000: 'in_1k_chip', 10000: 'in_10k_chip'}
+
 
 def chrom_center_to_x(df, include_chrM=True):
     chrom_col = 'chromosome_x' if 'chromosome_x' in df.columns else 'chromosome'
@@ -485,6 +489,15 @@ def main():
 
             for diff_file, label in file_list:
                 df = pd.read_csv(diff_file)
+
+                # 芯片过滤：N 对应小芯片时，只保留本芯片内的位点（diff 已附带 in_*_chip 列）。
+                # 过滤发生在取 top N 之前，避免混入非本芯片位点；无标记列（旧 diff）时跳过。
+                chip_col = CHIP_COL_BY_N.get(n)
+                if chip_col and chip_col in df.columns:
+                    n_before = len(df)
+                    df = df[df[chip_col]].copy()
+                    print(f"  芯片过滤({chip_col}): {n_before} → {len(df)} 行")
+
                 df_on = df[df['on_target'] == True].head(n)
                 df_off = df[df['on_target'] == False].head(n)
                 df_subset = pd.concat([df_on, df_off], ignore_index=True)

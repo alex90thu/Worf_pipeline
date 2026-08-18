@@ -12,6 +12,10 @@ import os
 import argparse
 from scipy import stats
 
+# 绘图 N 值 → 需过滤的芯片标记列（diff 文件由 pipeline 附带 in_*_chip 列）。
+# 80k 芯片是全量位点，不过滤；其余小芯片只画本芯片内的位点。
+CHIP_COL_BY_N = {100: 'in_100_chip', 1000: 'in_1k_chip', 10000: 'in_10k_chip'}
+
 
 def plot_bar_with_error(df, output_path, title):
     """柱状图：ON vs OFF 对比（ctrl 和 sample 分开展示），均值 + standard error
@@ -268,7 +272,15 @@ def main():
                 continue
             
             df = pd.read_csv(diff_file)
-            
+
+            # 芯片过滤：N 对应小芯片时，只保留本芯片内的位点（diff 已附带 in_*_chip 列）。
+            # 过滤发生在取 top N 之前，避免混入非本芯片位点；无标记列（旧 diff）时跳过。
+            chip_col = CHIP_COL_BY_N.get(n)
+            if chip_col and chip_col in df.columns:
+                n_before = len(df)
+                df = df[df[chip_col]].copy()
+                print(f"  芯片过滤({chip_col}): {n_before} → {len(df)} 行")
+
             # 过滤染色体
             chrom_order = [f'chr{i}' for i in range(1, 23)] + ['chrX', 'chrY', 'chrM']
             chrom_order_no_m = [f'chr{i}' for i in range(1, 23)] + ['chrX', 'chrY']
