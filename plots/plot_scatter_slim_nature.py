@@ -64,11 +64,13 @@ OFF_COLORS = ['#B03A2E', '#EC7063']
 
 
 def plot_nature(df, y_col, out_stem, ylim, abs_max, alt_x=True,
-                width_mm=120.0, height_mm=40.0):
+                width_mm=120.0, height_mm=40.0, rasterize=False):
     """一张 Nature 版散点图（含可选低调断轴）。
 
     alt_x: 横轴交替标注（只标奇数 1,3,5,…21 与 X/Y/M，偶数留空），减少拥挤。
     width_mm/height_mm: 画布物理尺寸（默认 120×40mm）。
+    rasterize: 数据点栅格化（嵌为位图），文本/轴/刻度保持矢量可编辑。
+              期刊投稿常用：散点数量大，栅格化可大幅减小 PDF 体积。
     """
     df, chrom_offsets, chrom_lengths = chrom_center_to_x(df.copy(), include_chrM=True)
 
@@ -120,21 +122,27 @@ def plot_nature(df, y_col, out_stem, ylim, abs_max, alt_x=True,
         mask_off = (df_off['chrom_num'] == cnum)
 
         if mask_on.any():
-            ax_bot.scatter(df_on.loc[mask_on, 'absolute_bp'], y_on[mask_on],
-                           c=on_color, alpha=0.35, s=2, zorder=3, edgecolors='none')
+            coll = ax_bot.scatter(df_on.loc[mask_on, 'absolute_bp'], y_on[mask_on],
+                                  c=on_color, alpha=0.35, s=2, zorder=3, edgecolors='none')
+            coll.set_rasterized(rasterize)
         if mask_off.any():
-            ax_bot.scatter(df_off.loc[mask_off, 'absolute_bp'], y_off[mask_off],
-                           c=off_color, alpha=0.35, s=2, zorder=2, edgecolors='none')
+            coll = ax_bot.scatter(df_off.loc[mask_off, 'absolute_bp'], y_off[mask_off],
+                                  c=off_color, alpha=0.35, s=2, zorder=2, edgecolors='none')
+            coll.set_rasterized(rasterize)
 
         if needs_break:
             outlier_on = mask_on & (y_on > ylim[1])
             outlier_off = mask_off & (y_off > ylim[1])
             if outlier_on.any():
-                ax_top.scatter(df_on.loc[outlier_on, 'absolute_bp'], y_on[outlier_on],
-                               c=on_color, alpha=0.9, s=12, marker='^', zorder=4, edgecolors='none')
+                coll = ax_top.scatter(df_on.loc[outlier_on, 'absolute_bp'], y_on[outlier_on],
+                                      c=on_color, alpha=0.9, s=12, marker='^', zorder=4,
+                                      edgecolors='none')
+                coll.set_rasterized(rasterize)
             if outlier_off.any():
-                ax_top.scatter(df_off.loc[outlier_off, 'absolute_bp'], y_off[outlier_off],
-                               c=off_color, alpha=0.9, s=12, marker='^', zorder=4, edgecolors='none')
+                coll = ax_top.scatter(df_off.loc[outlier_off, 'absolute_bp'], y_off[outlier_off],
+                                      c=off_color, alpha=0.9, s=12, marker='^', zorder=4,
+                                      edgecolors='none')
+                coll.set_rasterized(rasterize)
 
     xlim_max = chrom_offsets.iloc[-1] + chrom_lengths.iloc[-1]
     ax_bot.set_xlim(0, xlim_max)
@@ -202,6 +210,8 @@ def main():
                          '加 --no-alt-x-labels 全标')
     ap.add_argument('--width-mm', type=float, default=120.0, help='画布宽 mm（默认 120）')
     ap.add_argument('--height-mm', type=float, default=40.0, help='画布高 mm（默认 40）')
+    ap.add_argument('--rasterize', action=argparse.BooleanOptionalAction, default=False,
+                    help='数据点栅格化（默认关闭=全矢量；开启后散点嵌为位图、文本保持矢量可编辑）')
     args = ap.parse_args()
 
     frac_suffix = '' if str(args.frac) == '1' else f'_{args.frac}'
@@ -224,14 +234,16 @@ def main():
     print(f'  ylim={ylim[0]:.1f}~{ylim[1]:.1f}, abs_max={stats["abs_max"]}, '
           f'break_axis={bool(stats["break_axis_enabled"])}')
 
-    # 输出目录：120×40 默认 → nature_draft/；其他尺寸 → nature_draft_{宽}mm/（不互相覆盖）
+    # 输出目录：120×40 默认 → nature_draft/；其他尺寸 → nature_draft_{宽}mm/；
+    # 栅格化版追加 _raster 后缀，互不覆盖。
     if args.out_root:
         out_base = args.out_root
     else:
-        out_base = os.path.join(
-            ROOT, 'output', '5.Plots',
-            'nature_draft' if (args.width_mm == 120.0 and args.height_mm == 40.0)
-            else f'nature_draft_{int(args.width_mm)}mm')
+        base_name = ('nature_draft' if (args.width_mm == 120.0 and args.height_mm == 40.0)
+                     else f'nature_draft_{int(args.width_mm)}mm')
+        if args.rasterize:
+            base_name += '_raster'
+        out_base = os.path.join(ROOT, 'output', '5.Plots', base_name)
     out_dir = os.path.join(out_base, args.exp, f'{args.frac}_N{args.n}')
     os.makedirs(out_dir, exist_ok=True)
 
@@ -239,7 +251,8 @@ def main():
                        ('read_count_sample', 'read_count_sample')):
         plot_nature(df_subset, y_col, os.path.join(out_dir, tag), ylim, stats['abs_max'],
                     alt_x=args.alt_x_labels,
-                    width_mm=args.width_mm, height_mm=args.height_mm)
+                    width_mm=args.width_mm, height_mm=args.height_mm,
+                    rasterize=args.rasterize)
 
     print(f'\n✅ done → {out_dir}')
 
